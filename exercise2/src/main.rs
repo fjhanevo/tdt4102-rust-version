@@ -18,11 +18,14 @@ fn menu()
         "5) input_integers_and_print_sum()\n",
         "6) input_integers_and_print_sum_until_stopped()\n",
         "7) input_double()\n",
-        "8) convert_nok_to_eur()\n"
+        "8) convert_nok_to_eur()\n",
+        "9) print_multiplication_table()\n",
+        "10) solve_quadratic_equation()\n"
     ));
     loop {
         
         println!("---------");
+        print!("Skriv inn tall (0-10): ");
 
         // flush to ensure prompt prints
         io::stdout().flush().unwrap();
@@ -60,6 +63,8 @@ fn menu()
                 println!("Du skrev: {number}");
             } 
             8 => convert_nok_to_eur(),
+            9 => print_multiplication_table(),
+            10 => solve_quadratic_equation(),
             _ => println!("Ugyldig tall!")
         }
     }
@@ -158,4 +163,68 @@ fn convert_nok_to_eur()
 
     const EUR_TO_NOK: f32 =  10.5;
     println!("{number} NOK == {} EUR", number/EUR_TO_NOK);
+}
+
+fn print_multiplication_table()
+{
+    println!("Enter height:");
+    let mut height = String::new();
+    io::stdin()
+        .read_line(&mut height)
+        .expect("Failed to read line!");
+
+    let height: u32 = height.trim().parse().expect("Not a number!");
+
+    println!("Enter width:");
+    let mut width = String::new();
+    io::stdin()
+        .read_line(&mut width)
+        .expect("Failed to read line!");
+
+    let width: u32 = width.trim().parse().expect("Not a number!");
+
+    for i in 1..=height {
+        for j in 1..=width {
+            print!("{}   ", i*j);
+        }
+        println!("");
+    }
+}
+
+fn discriminant(a: f32, b: f32, c: f32) -> f32
+{
+    b.powi(2) - 4.0*a*c
+}
+
+fn print_real_roots(a: f32, b: f32, c: f32)
+{
+    let disc: f32 = discriminant(a, b, c);
+    if disc > 0.0 {
+        println!("Solution 1: {}", (-b + f32::sqrt(disc)) / 2.0*a);
+        println!("Solution 2: {}", (-b - f32::sqrt(disc)) / 2.0*a);
+    }
+    else if disc == 0.0 {
+        println!("Solution: {}", (-b + f32::sqrt(disc)) / 2.0*a);
+    } 
+    else {
+        println!("No solution!")
+    }
+}
+
+fn solve_quadratic_equation()
+{
+    println!("Skriv inn a,b og c for andregradsligningen:");
+    let a: f32 = input_double();
+    let b: f32 = input_double();
+    let c: f32 = input_double();
+    print_real_roots(a, b, c);
+}
+
+fn calculate_balance(amount: i32, rate: i32, years: u32) -> Vec<i32>
+{
+    let mut result: Vec<i32> = Vec::new();
+    for year in 0..=years {
+        result.push(amount*(1+rate/100).pow(year));
+    }
+    result
 }

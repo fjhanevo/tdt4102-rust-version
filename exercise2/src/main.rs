@@ -16,7 +16,9 @@ fn menu()
         "3) print_sum_of_input_integers()\n",
         "4) is_odd()\n",
         "5) input_integers_and_print_sum()\n",
-        "6) input_integers_and_print_sum_until_stopped()\n"
+        "6) input_integers_and_print_sum_until_stopped()\n",
+        "7) input_double()\n",
+        "8) convert_nok_to_eur()\n"
     ));
     loop {
         
@@ -42,8 +44,8 @@ fn menu()
             0 => break,
             1 => input_and_print_integer(),
             2 => {
-                let result = input_integer();
-                println!("Du skrev: {result}");
+                let number = input_integer();
+                println!("Du skrev: {number}");
             },
             3 => print_sum_of_input_integers(),
             4 => {
@@ -53,6 +55,11 @@ fn menu()
             },
             5 => input_integers_and_print_sum(),
             6 => input_integers_and_print_sum_until_stopped(),
+            7 => {
+                let number =input_double();
+                println!("Du skrev: {number}");
+            } 
+            8 => convert_nok_to_eur(),
             _ => println!("Ugyldig tall!")
         }
     }
@@ -130,4 +137,25 @@ fn input_integers_and_print_sum_until_stopped()
         counter += number;
     }
     println!("Summen av alle tallene ble: {counter}");
+}
+
+fn input_double() -> f32
+{
+    println!("Skriv inn et flyttall");
+    let mut number = String::new();
+
+    io::stdin()
+        .read_line(&mut number)
+        .expect("Failed to read line!");
+    
+    let number: f32 = number.trim().parse().expect("Not a number!");
+    number
+}
+
+fn convert_nok_to_eur()
+{
+    let number = input_double();
+
+    const EUR_TO_NOK: f32 =  10.5;
+    println!("{number} NOK == {} EUR", number/EUR_TO_NOK);
 }

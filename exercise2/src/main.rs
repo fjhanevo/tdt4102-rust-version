@@ -20,12 +20,13 @@ fn menu()
         "7) input_double()\n",
         "8) convert_nok_to_eur()\n",
         "9) print_multiplication_table()\n",
-        "10) solve_quadratic_equation()\n"
+        "10) solve_quadratic_equation()\n",
+        "11) print_balance()\n" 
     ));
     loop {
         
         println!("---------");
-        print!("Skriv inn tall (0-10): ");
+        print!("Skriv inn tall (0-11): ");
 
         // flush to ensure prompt prints
         io::stdout().flush().unwrap();
@@ -65,6 +66,13 @@ fn menu()
             8 => convert_nok_to_eur(),
             9 => print_multiplication_table(),
             10 => solve_quadratic_equation(),
+            11 => {
+                println!("Skriv in saldo, rente og år:");
+                let amount = input_integer();
+                let rate = input_integer();
+                let years = input_integer().try_into().unwrap();    // converts to i32
+                print_balance(calculate_balance(amount, rate, years));
+            }
             _ => println!("Ugyldig tall!")
         }
     }
@@ -223,8 +231,21 @@ fn solve_quadratic_equation()
 fn calculate_balance(amount: i32, rate: i32, years: u32) -> Vec<i32>
 {
     let mut result: Vec<i32> = Vec::new();
+    let rate = rate as f64 / 100.0;
+    let amount = amount as f64;
     for year in 0..=years {
-        result.push(amount*(1+rate/100).pow(year));
+        println!("{year}");
+        let balance = amount * (1.0 + rate).powi(year as i32);
+        result.push(balance.round() as i32);
     }
     result
+}
+
+fn print_balance(vec: Vec<i32>)
+{
+    println!("År\t Saldo");
+
+    for i in 0..=vec.len()-1 {
+        println!("{i}\t {}",vec[i]);
+    }
 }

@@ -1,4 +1,4 @@
-use crate::utilities::{incerement_by_value_num_times,swap_numbers};
+use crate::utilities::{incerement_by_value_num_times, print_student, swap_numbers, Student};
 
 pub fn test_call_by_value()
 {
@@ -26,4 +26,16 @@ y = {y}");
     println!("Swapped:
 x = {x}
 y = {y}");
+}
+
+pub fn test_student_struct()
+{
+    let student = Student {
+        name: String::from("Fredrik"),
+        study_program: String::from("Nano"),
+        age: 27,
+    };
+
+    print_student(&student);
+    
 }

@@ -1,5 +1,5 @@
-pub mod test;
-pub mod utilities;
+mod test;
+mod utilities;
 use std::io;
 
 fn main() 
@@ -13,7 +13,8 @@ fn menu()
         "Choose function (0-2)\n",
         "0) Quit\n",
         "1) test_call_by_value()\n",
-        "2) test_swap_numbers()\n"
+        "2) test_swap_numbers()\n",
+        "3) test_student_struct()\n"
     ));
 
     loop {
@@ -33,6 +34,7 @@ fn menu()
             0 => break, 
             1 => test::test_call_by_value(),
             2 => test::test_swap_numbers(),
+            3 => test::test_student_struct(),
             _ => println!("Not a choice!")
         }
     }

@@ -1,4 +1,4 @@
-use crate::utilities::{incerement_by_value_num_times, print_student, swap_numbers, Student};
+use crate::utilities::{incerement_by_value_num_times, print_student, randomize_string, swap_numbers, Student};
 
 pub fn test_call_by_value()
 {
@@ -38,4 +38,11 @@ pub fn test_student_struct()
 
     print_student(&student);
     
+}
+
+pub fn test_string()
+{
+    let num_grades: u32 = 8;
+    let grades = randomize_string(num_grades, 'A', 'F');
+    println!("{}", grades);
 }

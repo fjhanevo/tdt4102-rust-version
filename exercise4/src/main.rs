@@ -14,7 +14,8 @@ fn menu()
         "0) Quit\n",
         "1) test_call_by_value()\n",
         "2) test_swap_numbers()\n",
-        "3) test_student_struct()\n"
+        "3) test_student_struct()\n",
+        "4) test_string()\n"
     ));
 
     loop {
@@ -35,6 +36,7 @@ fn menu()
             1 => test::test_call_by_value(),
             2 => test::test_swap_numbers(),
             3 => test::test_student_struct(),
+            4 => test::test_string(),
             _ => println!("Not a choice!")
         }
     }

@@ -1,4 +1,4 @@
-use std::fmt;
+use std::{fmt, io};
 use rand::{random, Rng};
 
 pub fn incerement_by_value_num_times(mut start_value: u32, increment: u32, num_times: u32) -> u32
@@ -55,3 +55,33 @@ pub fn randomize_string(n: u32, lower_lim: char, upper_lim: char) -> String
     } 
     return_string
 }
+
+pub fn read_input_to_string(lower_lim: u32, upper_lim: u32, n: usize) -> String
+{
+    let mut result = String::new();
+
+    while result.len() < n {
+
+        let mut input = String::new();
+
+        io::stdin()
+            .read_line(&mut input)
+            .expect("Failed to read line!");
+
+        for ch in input.trim().chars() {
+            let ch_lower = ch.to_ascii_lowercase();
+            let code = ch_lower as u32;
+
+            if code >= lower_lim && code <= upper_lim {
+                result.push(ch_lower);
+                if result.len() == n { 
+                    break; 
+                } else {
+                    println!("Invalid sign '{}'. Try again", ch);
+                }
+            }
+        }
+    }
+    result
+}
+

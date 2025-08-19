@@ -1,11 +1,11 @@
 // src/card.rs
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum Suit {
     Clubs, Diamonds, Hearts, Spades,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum Rank {
     Two = 2, Three, Four, Five, Six, Seven, 
     Eight, Nine, Ten, Jack, Queen, King, Ace,
@@ -19,6 +19,10 @@ impl Suit {
             Suit::Hearts => "Hearts",
             Suit::Spades => "Spades",
         }
+    }
+
+    pub fn all() -> [Suit; 4] {
+        [Suit::Clubs, Suit::Diamonds, Suit::Hearts, Suit::Spades]
     }
 }
 
@@ -39,6 +43,24 @@ impl Rank {
             Rank::King => "King",
             Rank::Ace => "Ace",
         }
+    }
+
+    pub fn all() -> [Rank; 13] {
+        [
+            Rank::Two,
+            Rank::Three,
+            Rank::Four,
+            Rank::Five,
+            Rank::Six,
+            Rank::Seven,
+            Rank::Eight,
+            Rank::Nine,
+            Rank::Ten,
+            Rank::Jack,
+            Rank::Queen,
+            Rank::King,
+            Rank::Ace,
+        ]
     }
 }
 

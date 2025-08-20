@@ -1,8 +1,10 @@
 mod card;
+mod carddeck;
+mod blackjack;
 
-use card::{Card, Rank, Suit};
+use blackjack::Blackjack;
 
 fn main() {
-    let c = Card::new(Rank::Ace, Suit::Spades);
-    println!("{}", c.to_string());
+    let mut blackjack = Blackjack::new();
+    blackjack.play_game();
 }

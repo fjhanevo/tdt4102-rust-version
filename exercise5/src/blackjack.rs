@@ -39,7 +39,7 @@ impl Blackjack {
             if Self::is_ace(card) {
                 aces += 1;
             } else {
-                sum += card.get_rank().blackjack_values();
+                sum += Self::get_card_value(&card);
             }
         }
 
@@ -53,9 +53,9 @@ impl Blackjack {
         sum
     }
 
-    fn ask_player_draw_card() -> bool {
+    fn ask_player(s: String) -> bool {
         let mut input = String::new();
-        println!("Do you want to draw a card? [y/n]");
+        println!("{}", s);
 
         io::stdin()
             .read_line(&mut input)
@@ -71,7 +71,7 @@ impl Blackjack {
         if let Some(card) = self.deck.draw_card() {
             self.player_hand.push(card);
             println!("You drew {}", card.to_string());
-            self.player_hand_sum += Self::get_card_value(&card);
+            self.player_hand_sum = self.get_hand_score(&self.player_hand);
         } else {
             println!("Deck is empty!");
         }
@@ -80,7 +80,7 @@ impl Blackjack {
     fn draw_dealer_card(&mut self) {
         if let Some(card) = self.deck.draw_card() {
             self.dealer_hand.push(card);
-            self.dealer_hand_sum += Self::get_card_value(&card);
+            self.dealer_hand_sum = self.get_hand_score(&self.dealer_hand);
         } else {
             println!("Deck is empty!");
         }
@@ -120,7 +120,7 @@ impl Blackjack {
                 println!("The dealer's first card is: {}", card.to_string());
             }
 
-            while self.player_hand_sum < 21 && Self::ask_player_draw_card() {
+            while self.player_hand_sum < 21 && Self::ask_player("Do you want to draw a card [y/N]".to_string()) {
                 println!("Player draws a card.");
                 self.draw_player_card();
                 println!("Player hand sum is: {}", self.player_hand_sum);
@@ -139,9 +139,9 @@ impl Blackjack {
             println!("Dealer's hand sum: {}", self.dealer_hand_sum);
 
             if self.player_hand_sum > 21 {
-                println!("Player burst!");
+                println!("Player bust!");
             } else if self.dealer_hand_sum > 21 {
-                println!("Dealer burst!");
+                println!("Dealer bust!");
                 win = true;
             } else if self.player_hand_sum == 21 && self.player_hand.len() == 2 {
                 println!("Player got Blackjack!\n");
@@ -160,8 +160,9 @@ impl Blackjack {
             } else {
                 println!("You lost!");
             }
-            break;
-
+            if !Self::ask_player("Play again? [y/N]".to_string()) {
+                break;
+            }
         }
     }
 }

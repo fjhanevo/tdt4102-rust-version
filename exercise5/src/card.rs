@@ -83,7 +83,7 @@ impl Rank {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Card {
     suit: Suit,
     rank: Rank,
@@ -95,9 +95,9 @@ impl Card {
         Self { rank, suit }
     }
 
-    pub fn get_suit(&self) -> Suit {
-        self.suit
-    }
+    // pub fn get_suit(&self) -> Suit {
+    //     self.suit
+    // }
 
     pub fn get_rank(&self) -> Rank {
         self.rank

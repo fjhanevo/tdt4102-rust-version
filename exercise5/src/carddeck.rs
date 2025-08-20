@@ -1,6 +1,9 @@
+// src/carddeck.rs
+
 use rand::Rng;
 use crate::card::{Card, Suit, Rank};
 
+#[derive(Debug)]
 pub struct CardDeck {
     pub cards: Vec<Card>
 }
@@ -34,11 +37,11 @@ impl CardDeck {
         self.cards.insert(b, temp);
     }
 
-    pub fn print(&self) {
-        for c in self.cards.iter() {
-            println!("{}", c.to_string());
-        }
-    }
+    // pub fn print(&self) {
+    //     for c in self.cards.iter() {
+    //         println!("{}", c.to_string());
+    //     }
+    // }
 
     pub fn shuffle(&mut self) {
         let mut rng = rand::rng();
